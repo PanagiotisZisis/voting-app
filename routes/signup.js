@@ -44,7 +44,7 @@ router.post('/', function(req, res) {
           user.save(function(err) {
             if (err) throw err;
             console.log('new user saved');
-            res.render('signup', { errors: false });
+            res.render('login');
           });
         });
       }

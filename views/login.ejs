@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>votingApp | Sign up</title>
+    <title>votingApp | Log in</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
@@ -22,10 +22,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/signup">Sign up</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/login">Log in</a>
           </li>
         </ul>
@@ -33,16 +33,9 @@
     </nav>
 
     <div class="container" id="signup-form">
-      <h1 class="display-3 text-center">Sign up</h1>
+      <h1 class="display-3 text-center">Log in</h1>
       <br />
-      <% if (errors) { %>
-        <% for (var i = 0; i < errors.length; i++) { %>
-          <div class="alert alert-danger col-md-6 offset-md-3 text-center">
-            <%= errors[i] %>
-          </div>
-        <% } %>
-      <% } %>
-      <form method="POST" action="/signup">
+      <form method="POST" action="/login">
         <div class="form-group col-md-6 offset-md-3">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" placeholder="e.g. freeCodeCamp" name="username">
