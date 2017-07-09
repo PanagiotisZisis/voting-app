@@ -34,6 +34,14 @@
 
     <div class="container" id="signup-form">
       <h1 class="display-3 text-center">Sign up</h1>
+      <br />
+      <% if (errors) { %>
+        <% for (var i = 0; i < errors.length; i++) { %>
+          <div class="alert alert-danger col-md-6 offset-md-3 text-center">
+            <%= errors[i] %>
+          </div>
+        <% } %>
+      <% } %>
       <form method="POST" action="/signup">
         <div class="form-group col-md-6 offset-md-3">
           <label for="username">Username</label>
@@ -48,6 +56,7 @@
         <div class="text-center">
           <button type="submit" class="btn btn-success">Submit</button>
         </div>
+        <br />
       </form>
     </div>
 

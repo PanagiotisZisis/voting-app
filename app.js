@@ -7,7 +7,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
+var mongoose = require('mongoose');
 require('dotenv').config();
+
+mongoose.connect(process.env.MONGO);
 
 var index = require('./routes/index');
 var signup = require('./routes/signup');
