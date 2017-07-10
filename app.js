@@ -8,6 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO);
@@ -15,6 +18,7 @@ mongoose.connect(process.env.MONGO);
 var index = require('./routes/index');
 var signup = require('./routes/signup');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -34,10 +38,26 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ 
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+require('./config/passport')(passport);
 
 app.use('/', index);
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/logout', logout);
+
+app.get('*', function(req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

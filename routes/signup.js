@@ -5,7 +5,6 @@ var router = express.Router();
 var User = require('../models/users');
 var bcrypt = require('bcryptjs');
 
-/* GET home page. */
 router.get('/', function(req, res) {
   res.render('signup', { errors: false });
 });
