@@ -3,19 +3,33 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var bcrypt = require('bcryptjs');
-var User = require('../models/users');
 
 router.get('/', function(req, res) {
-  res.render('login');
+  res.render('login', { errors: false });
 });
 
-router.post('/', function(req, res) {
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: 'login',
-    failureFlash: true
-  })(req, res);
+router.post('/', function(req, res, next) {
+  var errors = [];
+  var username = req.body.username;
+  var password = req.body.password;
+
+  if (username === '' || password === '') {
+    errors = 'Both Username and Password fields are required.';
+  }
+  if (errors.length > 0) {
+    return res.render('login', { errors: errors });
+  }
+  passport.authenticate('local', function(err, user) {
+    if (err) { return next(err); }
+    if (!user) {
+      errors = 'Invalid credendtials.';
+      return res.render('login', { errors: errors });
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/');
+    });
+  })(req, res, next);
 });
 
 module.exports = router;

@@ -10,7 +10,6 @@ var sassMiddleware = require('node-sass-middleware');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
-var flash = require('connect-flash');
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO);
@@ -45,10 +44,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
+// passport configuration
 require('./config/passport')(passport);
 
+//routing configuration
 app.use('/', index);
 app.use('/signup', signup);
 app.use('/login', login);

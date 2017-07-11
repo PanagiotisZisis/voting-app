@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
           user.save(function(err) {
             if (err) throw err;
             console.log('new user saved');
-            res.render('login');
+            res.redirect('/login');
           });
         });
       }
