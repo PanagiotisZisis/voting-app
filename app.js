@@ -10,6 +10,7 @@ var sassMiddleware = require('node-sass-middleware');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
+var MongoStore = require('connect-mongo')(session);
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO);
@@ -18,6 +19,7 @@ var index = require('./routes/index');
 var signup = require('./routes/signup');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
+var dashboard = require('./routes/dashboard');
 
 var app = express();
 
@@ -40,7 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ 
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -53,11 +56,7 @@ app.use('/', index);
 app.use('/signup', signup);
 app.use('/login', login);
 app.use('/logout', logout);
-
-app.get('*', function(req, res, next) {
-  res.locals.user = req.user || null;
-  next();
-});
+app.use('/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

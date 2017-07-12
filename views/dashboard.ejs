@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>votingApp | Sign up</title>
+    <title>votingApp | Dashboard</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
@@ -23,41 +23,37 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/signup">Sign up</a>
+            <a class="nav-link" href="/signup">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Log in</a>
+            <a class="nav-link" href="/login">Log out</a>
           </li>
         </ul>
       </div>
     </nav>
 
-    <div class="container" id="signup-form">
-      <h1 class="display-3 text-center">Sign up</h1>
-      <br />
-      <% if (errors) { %>
-        <% for (var i = 0; i < errors.length; i++) { %>
-          <div class="alert alert-danger col-md-6 offset-md-3 text-center">
-            <%= errors[i] %>
-          </div>
-        <% } %>
-      <% } %>
-      <form method="POST" action="/signup">
-        <div class="form-group col-md-6 offset-md-3">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" name="username">
-        </div>
-        <br />
-        <div class="form-group col-md-6 offset-md-3">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <br />
-        <div class="text-center">
-          <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-        <br />
-      </form>
+    <div class="jumbotron mt-5">
+      <h1 class="display-3 text-center">Dashboard</h1>
+      <p class="lead text-center">Create new polls or delete already existing ones you created.</p>
+      <hr class="my-6">
+      <p class="lead text-center">What would you like to do today?</p>
+      <p class="lead text-center">
+        <a class="btn btn-secondary btn-lg" href="signup" role="button">Create New</a>
+      </p>
+      <h2 class="text-center display-4">or</h2>
+    </div>
+
+    <div class="container">
+      <div class="col-md-8 offset-md-2">
+        <ul class="btn-group-vertical w-100">
+          <% for (var i = 0; i < 5; i++) { %>
+            <div class="btn-group">
+              <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-10"><%= 'My Poll' %></a>
+              <button class="btn btn-outline-danger btn-lg col-sm-2">DEL</button>
+            </div>
+          <% } %>
+        </ul>
+      </div>
     </div>
 
     <div class="footer bg-inverse">
@@ -65,7 +61,7 @@
         <div class="text-muted text-right">© 2017 Panagiotis Zisis</div>
       </div>
     </div>
-
+    
     <script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
     <script src="/bower_components/tether/dist/js/tether.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
