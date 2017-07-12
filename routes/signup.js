@@ -6,6 +6,9 @@ var User = require('../models/users');
 var bcrypt = require('bcryptjs');
 
 router.get('/', function(req, res) {
+  if (req.user) {
+    return res.redirect('/');
+  }
   res.render('signup', { errors: false });
 });
 

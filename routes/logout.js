@@ -5,7 +5,6 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   req.logout();
-  req.flash('success', 'You are logged out.');
   res.redirect('/');
 });
 

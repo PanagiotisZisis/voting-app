@@ -5,6 +5,9 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/', function(req, res) {
+  if (req.user) {
+    return res.redirect('/');
+  }
   res.render('login', { errors: false });
 });
 
