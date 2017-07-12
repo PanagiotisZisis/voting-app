@@ -9,7 +9,7 @@ router.get('/:username', function(req, res) {
   if (!req.user) {
     return res.redirect('/');
   }
-  res.render('dashboard');
+  res.render('dashboard', { user: req.user });
 });
 
 router.get('/', function(req, res) {

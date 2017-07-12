@@ -23,10 +23,10 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/signup">Dashboard</a>
+            <a class="nav-link" href="/dashboard/<%= user.username %>">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Log out</a>
+            <a class="nav-link" href="/logout">Log out</a>
           </li>
         </ul>
       </div>
@@ -38,7 +38,7 @@
       <hr class="my-6">
       <p class="lead text-center">What would you like to do today?</p>
       <p class="lead text-center">
-        <a class="btn btn-secondary btn-lg" href="signup" role="button">Create New</a>
+        <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#createModal">Create New Poll</button>
       </p>
       <h2 class="text-center display-4">or</h2>
     </div>
@@ -48,11 +48,32 @@
         <ul class="btn-group-vertical w-100">
           <% for (var i = 0; i < 5; i++) { %>
             <div class="btn-group">
-              <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-10"><%= 'My Poll' %></a>
-              <button class="btn btn-outline-danger btn-lg col-sm-2">DEL</button>
+              <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-6"><%= 'My Poll' %></a>
+              <button class="btn btn-outline-primary btn-lg col-sm-3">EDIT</button>
+              <button class="btn btn-outline-danger btn-lg col-sm-3">DEL</button>
             </div>
           <% } %>
         </ul>
+      </div>
+    </div>
+
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create New Poll</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
       </div>
     </div>
 
