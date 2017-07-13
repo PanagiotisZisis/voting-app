@@ -15,3 +15,6 @@ body {
 #signup-form {
   margin-top: 15%;
 }
+#login-form {
+  @extend #signup-form;
+}

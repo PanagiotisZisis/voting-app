@@ -12,7 +12,7 @@ body {
   height: 60px;
   line-height: 60px; }
 
-#signup-form {
+#signup-form, #login-form {
   margin-top: 15%; }
 
 /*# sourceMappingURL=style.css.map */
