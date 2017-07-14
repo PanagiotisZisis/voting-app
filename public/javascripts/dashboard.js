@@ -5,8 +5,17 @@ $(document).ready(function() {
     var count = 2;
     $('#modalBody').html('');
     $('#modalFooter').html('');
+    $('#modalHeader').html('');
+
+    $('#modalHeader').html(
+      `<h5 class="modal-title" id="exampleModalLabel">Create New Poll</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>`
+    );
     $('#modalBody').html(
       `<div id="errorContainer"></div>
+       <p class="text-muted">If you add an extra Label by mistake, reopen this window!</p>
        <div class="form-group">
          <label for="title">Poll Title</label>
          <input type="text" class="form-control" id="title">
@@ -24,7 +33,7 @@ $(document).ready(function() {
     );
     $('#modalFooter').html(
       `<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-       <button type="button" class="btn btn-primary" data-user="<%= user.username %>" id="createPollButton">Save New Poll</button>`
+       <button type="button" class="btn btn-primary" id="createPollButton">Save New Poll</button>`
     );
 
     $('#addLabel').click(function() {
@@ -39,13 +48,18 @@ $(document).ready(function() {
       var pollTitle = $('#title').val();
       var labelsArray = [];
       var errors = [];
+      var titleRegex = /^[\w ?;"',!\.]{1,60}$/i;
+      var labelRegex = /^[\w ?;"',!\.]{1,20}$/i;
 
-      if (pollTitle === '') {
-        errors.push('The Poll Title field is required.');
+      if (!titleRegex.test(pollTitle)) {
+        errors.push('Invalid Poll Title - Please keep it under 60 characters long.');
       }
       for (var i = 1; i <= count; i++) {
-        if ($('#label' + i).val() === '') {
-          errors.push('The Labels fields are required.');
+        labelsArray.push($('#label' + i).val());
+      }
+      for (var i = 0; i < labelsArray.length; i++) {
+        if (!labelRegex.test(labelsArray[i])) {
+          errors.push('Invalid Label - Please keep it under 20 characters long.');
           break;
         }
       }
@@ -56,9 +70,25 @@ $(document).ready(function() {
           );
         }
       } else {
-        for (var i = 1; i <= count; i++) {
-          labelsArray.push($('#label' + i).val().trim());
+        var votesArray = [];
+        for (var i = 0; i < labelsArray.length; i++) {
+          votesArray.push(0);
         }
+        var data = {
+          title: pollTitle,
+          labels: labelsArray,
+          votes: votesArray
+        };
+        $.ajax({
+          type: 'POST',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/create',
+          success: function(data) {
+            console.log('success');
+            console.log(data);
+          }
+        });
       }
     });
   });

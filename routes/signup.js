@@ -16,13 +16,15 @@ router.post('/', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   var errors = [];
+  var regex = /^[a-z0-9]{1,20}$/i;
 
-  if (username === '') {
-    errors.push('The Username field is required.');
+  console.log(regex.test(username), regex.test(password));
+
+  if (!regex.test(username)) {
+    errors.push('Invalid Username - Please keep it under 20 characters long and use only letters or numbers.');
   }
-  
-  if (password === '') {
-    errors.push('The Password field is required.');
+  if (!regex.test(password)) {
+    errors.push('Invalid Password - Please keep it under 20 characters long and use only letters or numbers.');
   }
 
   if (errors.length !== 0) {

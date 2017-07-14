@@ -19,8 +19,9 @@ router.get('/', function(req, res) {
   res.redirect('/');
 });
 
-router.post('/:username/add', function(req, res) {
-  
+router.post('/:username/create', function(req, res) {
+  console.log(req.body);
+  res.json(req.body);
 });
 
 module.exports = router;

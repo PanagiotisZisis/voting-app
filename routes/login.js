@@ -13,11 +13,12 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res, next) {
   var errors = [];
-  var username = req.body.username;
-  var password = req.body.password;
+  var username = req.body.username.trim();
+  var password = req.body.password.trim();
+  var regex = /^[a-z0-9]{1,20}$/i;
 
-  if (username === '' || password === '') {
-    errors = 'Both Username and Password fields are required.';
+  if (!regex.test(username) || !regex.test(password)) {
+    errors = 'Invalid Credentials';
   }
   if (errors.length > 0) {
     return res.render('login', { errors: errors });
@@ -25,7 +26,7 @@ router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (err) { return next(err); }
     if (!user) {
-      errors = 'Invalid credendtials.';
+      errors = "This Username doesn't exist.";
       return res.render('login', { errors: errors });
     }
     req.logIn(user, function(err) {
