@@ -22,7 +22,7 @@ $(document).ready(function() {
        </div>
        <div class="form-group">
          <label for="label1">Label 1</label>
-          <input type="text" class="form-control" id="label1">
+         <input type="text" class="form-control" id="label1">
         </div>
         <div class="form-group">
           <label for="label2">Label 2</label>
@@ -85,6 +85,31 @@ $(document).ready(function() {
         });
       }
     });
+  });
+
+  $('.deletePoll').click(function() {
+    var title = $(this).data('polltitle');
+    var id = $(this).data('pollid');
+    $('#modalBody').html('');
+    $('#modalFooter').html('');
+    $('#modalHeader').html('');
+
+    $('#modalHeader').html(
+      `<h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>`
+    );
+
+    $('#modalBody').html(
+      `<p class="text center lead">Are you sure you want to delete this post with title:</p>
+       <p class="text-center">${title}</p>`
+    );
+
+    $('#modalFooter').html(
+      `<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+       <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>`
+    );
   });
 
   $('#myModal').on('hide.bs.modal', function() {
