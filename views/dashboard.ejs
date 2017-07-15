@@ -9,7 +9,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
 
-  <body>
+  <body class="pollBody">
     
     <nav class="navbar fixed-top navbar-toggleable-sm navbar-inverse bg-inverse">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,17 +44,22 @@
     </div>
 
     <div class="container">
-      <div class="col-md-8 offset-md-2">
-        <ul class="btn-group-vertical w-100">
-          <% for (var i = 0; i < 5; i++) { %>
-            <div class="btn-group">
-              <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-6"><%= 'My Poll' %></a>
-              <button class="btn btn-outline-primary btn-lg col-sm-3">EDIT</button>
-              <button class="btn btn-outline-danger btn-lg col-sm-3">DEL</button>
-            </div>
-          <% } %>
-        </ul>
-      </div>
+      <% if (polls.length === 0 || !polls) { %>
+        <h2 class="display-5 text-center text-white">You have no polls yet.</h2>
+        <br />
+      <% } else { %>
+        <div class="col-md-8 offset-md-2">
+          <ul class="btn-group-vertical w-100">
+            <% for (var i = 0; i < polls.length; i++) { %>
+              <div class="btn-group">
+                <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-6"><%= polls[i].title %></a>
+                <button class="btn btn-outline-primary btn-lg col-sm-3 editPoll" data-id="<%= polls[i]._id %>">EDIT</button>
+                <button class="btn btn-outline-danger btn-lg col-sm-3 deletePoll" data-id="<%= polls[i]._id %>">DEL</button>
+              </div>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
     </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" data-user="<%= user.username %>">

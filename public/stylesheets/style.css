@@ -15,4 +15,10 @@ body {
 #signup-form, #login-form {
   margin-top: 15%; }
 
+.jumbotron, .formBody {
+  background: linear-gradient(0deg, #949494 10%, #efefef 90%); }
+
+.pollBody {
+  background: linear-gradient(to left, #232526, #414345); }
+
 /*# sourceMappingURL=style.css.map */

@@ -18,3 +18,12 @@ body {
 #login-form {
   @extend #signup-form;
 }
+.jumbotron {
+  background: linear-gradient(0deg, rgb(148, 148, 148) 10%, rgb(239, 239, 239) 90%);
+}
+.formBody {
+  @extend .jumbotron;
+}
+.pollBody {
+  background: linear-gradient(to left, rgb(35, 37, 38), rgb(65, 67, 69));
+}

@@ -45,7 +45,7 @@ $(document).ready(function() {
 
     $('#createPollButton').click(function() {
       $('#errorContainer').children('div').remove();
-      var pollTitle = $('#title').val();
+      var pollTitle = $('#title').val().trim();
       var labelsArray = [];
       var errors = [];
       var titleRegex = /^[\w ?;"',!\.]{1,60}$/i;
@@ -55,7 +55,7 @@ $(document).ready(function() {
         errors.push('Invalid Poll Title - Please keep it under 60 characters long.');
       }
       for (var i = 1; i <= count; i++) {
-        labelsArray.push($('#label' + i).val());
+        labelsArray.push($('#label' + i).val().trim());
       }
       for (var i = 0; i < labelsArray.length; i++) {
         if (!labelRegex.test(labelsArray[i])) {
@@ -70,23 +70,17 @@ $(document).ready(function() {
           );
         }
       } else {
-        var votesArray = [];
-        for (var i = 0; i < labelsArray.length; i++) {
-          votesArray.push(0);
-        }
         var data = {
           title: pollTitle,
-          labels: labelsArray,
-          votes: votesArray
+          labels: labelsArray
         };
         $.ajax({
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
           url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/create',
-          success: function(data) {
-            console.log('success');
-            console.log(data);
+          success: function() {
+            location.reload(true);
           }
         });
       }
