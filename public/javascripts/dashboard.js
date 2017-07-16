@@ -110,6 +110,19 @@ $(document).ready(function() {
       `<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
        <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>`
     );
+
+    $('#deleteButton').click(function() {
+      var data = { id: id };
+      $.ajax({
+        type: 'DELETE',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/delete',
+        success: function() {
+          location.reload(true);
+        }
+      });
+    });
   });
 
   $('#myModal').on('hide.bs.modal', function() {

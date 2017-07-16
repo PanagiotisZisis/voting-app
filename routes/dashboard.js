@@ -72,4 +72,19 @@ router.post('/:username/create', isLoggedIn, function(req, res) {
   }
 });
 
+router.delete('/:username/delete', isLoggedIn, function(req, res) {
+  if (req.params.username !== req.user.username) {
+    res.redirect('/dashboard/' + req.user.username);
+  } else {
+    var id = req.body.id;
+    id = id.replace(/^\"|\"$/g, '');
+    console.log(id);
+    Poll.deleteOne({ _id: id }, function(err) {
+      if (err) throw err;
+      console.log('poll deleted');
+      res.json({ success: 'success' });
+    });
+  }
+});
+
 module.exports = router;
