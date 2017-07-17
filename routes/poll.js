@@ -33,7 +33,17 @@ router.post('/:id', function(req, res) {
     Poll.update({ _id: id }, updatedDoc, function(err) {
       if (err) throw err;
       console.log('vote casted!');
+      res.redirect('/poll/' + id + '/results');
     });
+  });
+});
+
+router.get('/:id/results', function(req, res) {
+  var id = req.params.id;
+
+  Poll.findOne({ _id: id }, function(err, doc) {
+    if (err) throw err;
+    res.render('pollResult', { user: req.user, poll: doc });
   });
 });
 

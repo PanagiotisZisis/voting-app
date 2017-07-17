@@ -54,7 +54,7 @@
           <ul class="btn-group-vertical w-100">
             <% for (var i = 0; i < polls.length; i++) { %>
               <div class="btn-group">
-                <a href="#" class="btn btn-secondary btn-block btn-lg col-sm-6"><%= polls[i].title %></a>
+                <a href="/poll/<%= polls[i]._id %>" class="btn btn-secondary btn-block btn-lg col-sm-6"><%= polls[i].title %></a>
                 <button class="btn btn-outline-primary btn-lg col-sm-3 editPoll" data-pollId="<%= polls[i]._id %>" data-pollTitle="<%= JSON.stringify(polls[i].title) %>" data-pollLabels="<%= JSON.stringify(polls[i].labels) %>" data-toggle="modal" data-target="#myModal">EDIT</button>
                 <button class="btn btn-outline-danger btn-lg col-sm-3 deletePoll" data-pollId="<%= polls[i]._id %>" data-pollTitle="<%= JSON.stringify(polls[i].title) %>" data-toggle="modal" data-target="#myModal">DEL</button>
               </div>

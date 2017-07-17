@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>votingApp | Results</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+
+  <body class="formBody">
+
+    <nav class="navbar fixed-top navbar-toggleable-sm navbar-inverse bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">votingApp</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <% if (!user) { %>
+             <li class="nav-item">
+              <a class="nav-link" href="/signup">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Log in</a>
+            </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard<%= '/' + user.username %>">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log out</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </nav>
+    <br />
+
+    <div class="container mt-5" id="chartContainer" data-title="<%= poll.title %>" data-labels="<%= JSON.stringify(poll.labels) %>" data-votes="<%= JSON.stringify(poll.votes) %>">
+      <h1 class="display-5 text-center"><%= poll.title %></h1>
+      <br />
+      <div class="offset-sm-2 col-sm-8">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <br />
+
+    <div class="footer bg-inverse">
+      <div class="container">
+        <div class="text-muted text-right">© 2017 Panagiotis Zisis</div>
+      </div>
+    </div>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="/javascripts/results.js"></script>
+  </body>
+</html>
