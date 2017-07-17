@@ -2,9 +2,13 @@
 
 var express = require('express');
 var router = express.Router();
+var Poll = require('../models/polls');
 
 router.get('/', function(req, res) {
-  res.render('index', { user: req.user });
+  Poll.find(function(err, docs) {
+    if (err) throw err;
+    res.render('index', { user: req.user, polls: docs });
+  });
   console.log(req.user);
 });
 

@@ -21,4 +21,7 @@ body {
 .pollBody {
   background: linear-gradient(to left, #232526, #414345); }
 
+#pollTitle {
+  margin-top: 20%; }
+
 /*# sourceMappingURL=style.css.map */

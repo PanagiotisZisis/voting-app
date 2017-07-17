@@ -4,12 +4,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>votingApp | Home</title>
+    <title>votingApp | Poll</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
 
-  <body class="pollBody">
+  <body class="formBody">
     
     <nav class="navbar fixed-top navbar-toggleable-sm navbar-inverse bg-inverse">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +19,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
           <% if (!user) { %>
@@ -41,28 +41,23 @@
       </div>
     </nav>
 
-    <div class="jumbotron mt-5">
-      <h1 class="display-3 text-center">votingApp</h1>
-      <p class="lead text-center">Custom polls with live results.</p>
-      <hr class="my-6">
-      <% if (!user) { %>
-        <p class="lead text-center">Vote in a Poll below or create your own by creating a new account first.</p>
-        <p class="lead text-center">
-          <a class="btn btn-secondary btn-lg" href="signup" role="button">Create New Account.</a>
-        </p>
-      <% } else { %>
-        <p class="lead text-center">Vote in a Poll below.</p>
-      <% } %>
-    </div>
-
-    <div class="container" id="pollContainer">
-      <div class="col-md-8 offset-md-2">
-        <ul class="btn-group-vertical w-100">
-          <% for (var i = 0; i < polls.length; i++) { %>
-            <a href="/poll/<%= polls[i]._id %>" class="btn btn-secondary btn-lg btn-block"><%= polls[i].title %></a>
-          <% } %>
-        </ul>
-      </div>
+    <div class="container">
+      <h1 class="display-5 text-center" id="pollTitle"><%= poll.title %></h1>
+      <br />
+      <form method="POST" action="/poll/<%= poll._id %>">
+        <div class="form-group">
+          <select class="form-control offset-sm-4 col-sm-4" name="vote">
+            <% for (var i = 0; i < poll.labels.length; i++) { %>
+              <option value="<%= i %>"><%= poll.labels[i] %></option>
+            <% } %>
+          </select>
+          <br />
+          <div class="btn-group-vertical offset-sm-4 col-sm-4" role="group" aria-label="group" id="group">
+            <button type="submit" class="btn btn-primary" id="voteButton">Vote!</button>
+            <a href="/poll/<%= poll._id %>/results" class="btn btn-success text-center">View Results!</a>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="footer bg-inverse">
@@ -70,8 +65,8 @@
         <div class="text-muted text-right">© 2017 Panagiotis Zisis</div>
       </div>
     </div>
-    
-    <script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/tether/dist/js/tether.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
