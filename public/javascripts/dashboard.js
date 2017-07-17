@@ -15,7 +15,9 @@ $(document).ready(function() {
     );
     $('#modalBody').html(
       `<div id="errorContainer"></div>
-       <p class="text-muted">If you add an extra Label by mistake, reopen this window!</p>
+       <div class="alert alert-info text-center" role="alert">
+         If you add an extra Label by mistake, reopen this window!
+       </div>
        <div class="form-group">
          <label for="title">Poll Title</label>
          <input type="text" class="form-control" id="title">
@@ -33,7 +35,7 @@ $(document).ready(function() {
     );
     $('#modalFooter').html(
       `<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-       <button type="button" class="btn btn-primary" id="createPollButton">Save New Poll</button>`
+       <button type="button" class="btn btn-primary" id="createPollButton">Create New Poll</button>`
     );
 
     $('#addLabel').click(function() {
@@ -48,8 +50,8 @@ $(document).ready(function() {
       var pollTitle = $('#title').val().trim();
       var labelsArray = [];
       var errors = [];
-      var titleRegex = /^[\w ?;"',!\.]{1,60}$/i;
-      var labelRegex = /^[\w ?;"',!\.]{1,20}$/i;
+      var titleRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,60}$/i;
+      var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,20}$/i;
 
       if (!titleRegex.test(pollTitle)) {
         errors.push('Invalid Poll Title - Please keep it under 60 characters long.');
@@ -122,6 +124,98 @@ $(document).ready(function() {
           location.reload(true);
         }
       });
+    });
+  });
+
+  $('.editPoll').click(function() {
+    var id = $(this).data('pollid');
+    var title = $(this).data('polltitle');
+    var labels = $(this).data('polllabels');
+    var additionalLabelsCount = 0;
+    $('#modalBody').html('');
+    $('#modalFooter').html('');
+    $('#modalHeader').html('');
+
+    $('#modalHeader').html(
+      `<h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>`
+    );
+
+    $('#modalFooter').html(
+      `<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+       <button type="button" class="btn btn-primary" id="editButton">Save Changes</button>`
+    );
+
+    $('#modalBody').html(
+      `<div class="alert alert-info text-center" role="alert">
+         If you add an extra Label by mistake, reopen this window!
+       </div>
+       <div id="errorContainer"></div>
+       <p class="text-center lead">This Poll has the following Title:</p>
+       <p class="text-center">${title}</p>
+       <p class="text-center lead">and the following Labels:</p>
+       <div id=labelsContainer></div>`
+    );
+
+    for (var i = 0; i < labels.length; i++) {
+      $('#labelsContainer').append(
+        `<p class="text-center">${labels[i]}</p>`
+      );
+    }
+
+    $('#modalBody').append(
+      `<p class="text-center lead">Would you like to add more Labels?</p>
+       <div id="additionalLabelsContainer"></div>
+       <button type="button" class="btn btn-outline-info offset-sm-4 col-sm-4" id="addAdditionalLabels">Add Label</button>`
+    );
+
+    $('#addAdditionalLabels').click(function() {
+      additionalLabelsCount++;
+      $('#additionalLabelsContainer').append(
+        `<input type"text" class="form-control" id="label${additionalLabelsCount}">
+         <br />`
+      );
+    });
+
+    $('#editButton').click(function() {
+      if (additionalLabelsCount > 0) {
+        var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,20}$/i;
+        var additionalLabelsArray = [];
+        var errors = '';
+
+        for (var i = 1; i <= additionalLabelsCount; i++) {
+          additionalLabelsArray.push($('#label' + [i]).val().trim());
+        }
+        for (var i = 0; i < additionalLabelsArray.length; i++) {
+          if (!labelRegex.test(additionalLabelsArray[i])) {
+            errors = 'Invalid Labels - Please keep it under 20 characters long.';
+            break;
+          }
+        }
+        if (errors.length > 0) {
+          $('#errorContainer').html(
+            `<div class="alert alert-danger text-center" role="alert">
+               ${errors}
+             </div>`
+          );
+        } else {
+          var data = {
+            id: id,
+            labels: additionalLabelsArray
+          };
+          $.ajax({
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/edit',
+            success: function() {
+              location.reload(true);
+            }
+          });
+        }
+      }
     });
   });
 
