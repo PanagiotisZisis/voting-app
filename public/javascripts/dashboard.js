@@ -61,7 +61,7 @@ $(document).ready(function() {
       }
       for (var i = 0; i < labelsArray.length; i++) {
         if (!labelRegex.test(labelsArray[i])) {
-          errors.push('Invalid Label - Please keep it under 20 characters long.');
+          errors.push('Invalid Label - Please keep it under 30 characters long.');
           break;
         }
       }
@@ -190,7 +190,7 @@ $(document).ready(function() {
         }
         for (var i = 0; i < additionalLabelsArray.length; i++) {
           if (!labelRegex.test(additionalLabelsArray[i])) {
-            errors = 'Invalid Labels - Please keep it under 20 characters long.';
+            errors = 'Invalid Labels - Please keep it under 30 characters long.';
             break;
           }
         }
