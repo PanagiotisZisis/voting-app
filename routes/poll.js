@@ -32,7 +32,6 @@ router.post('/:id', function(req, res) {
 
     Poll.update({ _id: id }, updatedDoc, function(err) {
       if (err) throw err;
-      console.log('vote casted!');
       res.redirect('/poll/' + id + '/results');
     });
   });

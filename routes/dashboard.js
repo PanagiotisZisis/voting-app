@@ -32,7 +32,6 @@ router.get('/', isLoggedIn, function(req, res) {
 
 // creating a new poll
 router.post('/:username/create', isLoggedIn, function(req, res) {
-  console.log(req.body);
   var user = req.params.username;
   var username = req.user.username;
 
@@ -62,7 +61,6 @@ router.post('/:username/create', isLoggedIn, function(req, res) {
       } else {
         newPoll.save(function(err) {
           if (err) throw err;
-          console.log('new poll saved');
           res.json({ success: 'success' });
         });
       }
@@ -78,7 +76,6 @@ router.delete('/:username/delete', isLoggedIn, function(req, res) {
     var id = req.body.id;
     Poll.deleteOne({ _id: id }, function(err) {
       if (err) throw err;
-      console.log('poll deleted');
       res.json({ success: 'success' });
     });
   }
@@ -97,7 +94,6 @@ router.put('/:username/edit', isLoggedIn, function(req, res) {
       if (!doc) {
         res.redirect('/dashboard/' + req.user.username);
       } else {
-        console.log('debug');
         var docLabels = doc.labels;
         var docVotes = doc.votes;
 

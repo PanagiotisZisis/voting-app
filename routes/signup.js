@@ -18,8 +18,6 @@ router.post('/', function(req, res) {
   var errors = [];
   var regex = /^[a-z0-9]{1,20}$/i;
 
-  console.log(regex.test(username), regex.test(password));
-
   if (!regex.test(username)) {
     errors.push('Invalid Username - Please keep it under 20 characters long and use only letters or numbers.');
   }
@@ -37,7 +35,6 @@ router.post('/', function(req, res) {
       if (doc) {
         errors.push('This Username already exists.');
         res.render('signup', { errors: errors });
-        console.log('user already exists');
       } else {
         bcrypt.hash(password, 10, function(err, hash) {
           if (err) throw err;
@@ -47,7 +44,6 @@ router.post('/', function(req, res) {
           });
           user.save(function(err) {
             if (err) throw err;
-            console.log('new user saved');
             res.redirect('/login');
           });
         });

@@ -9,7 +9,6 @@ router.get('/', function(req, res) {
     if (err) throw err;
     res.render('index', { user: req.user, polls: docs });
   });
-  console.log(req.user);
 });
 
 module.exports = router;
