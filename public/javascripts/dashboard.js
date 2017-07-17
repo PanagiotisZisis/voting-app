@@ -51,7 +51,7 @@ $(document).ready(function() {
       var labelsArray = [];
       var errors = [];
       var titleRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,60}$/i;
-      var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,20}$/i;
+      var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,30}$/i;
 
       if (!titleRegex.test(pollTitle)) {
         errors.push('Invalid Poll Title - Please keep it under 60 characters long.');
@@ -181,7 +181,7 @@ $(document).ready(function() {
 
     $('#editButton').click(function() {
       if (additionalLabelsCount > 0) {
-        var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,20}$/i;
+        var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,30}$/i;
         var additionalLabelsArray = [];
         var errors = '';
 
