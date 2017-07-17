@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var MongoStore = require('connect-mongo')(session);
+var helmet = require('helmet');
+var compression = require('compression');
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO);
@@ -48,6 +50,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(helmet());
+app.use(compression());
 
 // passport configuration
 require('./config/passport')(passport);
