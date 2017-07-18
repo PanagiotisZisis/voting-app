@@ -1,0 +1,22 @@
+{
+  "name": "voting-app",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Panagiotis Zisis <takis.zisis@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/PanagiotisZisis/voting-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4.0",
+    "chart.js": "^2.6.0"
+  }
+}
