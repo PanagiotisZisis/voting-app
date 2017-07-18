@@ -50,8 +50,8 @@ $(document).ready(function() {
       var pollTitle = $('#title').val().trim();
       var labelsArray = [];
       var errors = [];
-      var titleRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,60}$/i;
-      var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,30}$/i;
+      var titleRegex = /^[\w -\[\]\}\{\+=_?;"',!\.]{1,60}$/i;
+      var labelRegex = /^[\w -\[\]\}\{\+=_?;"',!\.]{1,30}$/i;
 
       if (!titleRegex.test(pollTitle)) {
         errors.push('Invalid Poll Title - Please keep it under 60 characters long.');
@@ -80,7 +80,7 @@ $(document).ready(function() {
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
-          url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/create',
+          url: 'https://shielded-meadow-81038.herokuapp.com/dashboard/' + $('#myModal').data('user') + '/create',
           success: function() {
             location.reload(true);
           }
@@ -119,7 +119,7 @@ $(document).ready(function() {
         type: 'DELETE',
         data: JSON.stringify(data),
         contentType: 'application/json',
-        url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/delete',
+        url: 'https://shielded-meadow-81038.herokuapp.com/dashboard/' + $('#myModal').data('user') + '/delete',
         success: function() {
           location.reload(true);
         }
@@ -181,7 +181,7 @@ $(document).ready(function() {
 
     $('#editButton').click(function() {
       if (additionalLabelsCount > 0) {
-        var labelRegex = /^[\w \[\]\}\{\+=_?;"',!\.]{1,30}$/i;
+        var labelRegex = /^[\w -\[\]\}\{\+=_?;"',!\.]{1,30}$/i;
         var additionalLabelsArray = [];
         var errors = '';
 
@@ -209,7 +209,7 @@ $(document).ready(function() {
             type: 'PUT',
             data: JSON.stringify(data),
             contentType: 'application/json',
-            url: 'http://localhost:3000/dashboard/' + $('#myModal').data('user') + '/edit',
+            url: 'https://shielded-meadow-81038.herokuapp.com/dashboard/' + $('#myModal').data('user') + '/edit',
             success: function() {
               location.reload(true);
             }

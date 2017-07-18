@@ -14,7 +14,6 @@ var MongoStore = require('connect-mongo')(session);
 var helmet = require('helmet');
 var compression = require('compression');
 var cors = require('cors');
-require('dotenv').config();
 
 mongoose.connect(process.env.MONGO);
 
