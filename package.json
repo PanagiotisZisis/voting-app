@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "./public/bower_components/bower install"
+    "postinstall": "bower install"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
